@@ -4,9 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', function() {
+    return view('welcome');
+});
 
 Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', 'HomeController@index')->name('home');
     Route::get('/users', 'UserController@index')->name('admin.users.index');
     Route::get('/users/create', 'UserController@create')->name('admin.users.create');
     Route::post('/users/store', 'UserController@store')->name('admin.users.store');
