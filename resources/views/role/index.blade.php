@@ -6,18 +6,11 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">{{ __('Roles Page') }}</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">{{ __('Role') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('Index') }}</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Main content -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -39,23 +32,24 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="float-right">
-                            <a href="{{ route('admin.roles.create') }}">
+                            <a class='btn btn-info mb-2' href="{{ route('admin.roles.create') }}">
                                 <i class="fas fa-plus"></i> {{ __('Add') }}
                             </a>
                         </div>
                         <table class="table table-bordered">
                             <tr>
-                                <td>{{ __('No') }}</td>
                                 <td>{{ __('Name') }}</td>
                                 <td>{{ __('Actions') }}</td>
                             </tr>
-                            @foreach($roles as $item)
+                            @foreach($roles as $index => $item)
                             <tr>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->name }}</td>
                                 <td>
-                                    <a href="{{ route('admin.roles.edit', ['roleId' => $item->id]) }}">
+                                    <a class='btn btn-info m-1' href="{{ route('admin.roles.edit', ['roleId' => $item->id]) }}">
                                         <i class="fas fa-pen"></i> {{ __('Edit') }}
+                                    </a>
+                                    <a class='btn btn-danger m-1' href="{{ route('admin.roles.delete', ['roleId' => $item->id]) }}" data-href="{{ route('admin.permissions.delete', ['permissionId' => $item->id]) }}" data-toggle="modal" data-target="#delete-modal">
+                                        <i class="fas fa-trash"></i> {{ __('Delete') }}
                                     </a>
                                 </td>
                             </tr>
@@ -63,17 +57,15 @@
                         </table>
                     </div>
                     <div class="card-footer clearfix">
-                        <ul class="pagination pagination-sm m-0 float-right">
-                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                        </ul>
+                        {{ $roles->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+@endsection
+
+@section('modal_content')
+    @include('common.index-modal-alert');
 @endsection

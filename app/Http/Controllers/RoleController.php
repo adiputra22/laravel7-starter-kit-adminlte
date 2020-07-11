@@ -38,41 +38,92 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        
+        try {
+            $role = $this->roleRepository->create(['name' => $request->name]);
+    
+            $request->session()->flash('message', 'You are success save role data!');
+            $request->session()->flash('alert-class', 'success');
+
+            return redirect()->route('admin.roles.index');
+        } catch (\Exception $e) {
+            $request->session()->flash('message', $e->getMessage());
+            $request->session()->flash('alert-class', 'error');
+            
+            return redirect()->route('admin.roles.index');
+        }
     }
 
     public function edit($id)
     {
-        $role = $this->roleRepository->find($id);
+        try {
+            $role = $this->roleRepository->find($id);
 
-        if (!$role) {
-            throw new \Exception('Role not found', 404);
+            if (!$role) {
+                throw new \Exception('Role not found', 404);
+            }
+
+            return view('role.edit',[
+                'role' => $role    
+            ]);
+        } catch (\Exception $e) {
+            $request->session()->flash('message', $e->getMessage());
+            $request->session()->flash('alert-class', 'error');
+            
+            return redirect()->route('admin.roles.index');
         }
-
-        return view('role.edit',[
-            'role' => $role    
-        ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        
+        try {
+            $role = $this->roleRepository->find($id);
+    
+            if (!$role) {
+                throw new \Exception('Role not found', 404);
+            }
+    
+            $updated = $this->roleRepository->update($role->id, ['name' => $request->name]);
+    
+            if (!$updated) {
+                throw new \Exception($e->getMessage(), 400);
+            }
+
+            $request->session()->flash('message', 'You are success update role!');
+            $request->session()->flash('alert-class', 'success');
+
+            return redirect()->route('admin.roles.index');
+        } catch (\Exception $e) {
+            $request->session()->flash('message', $e->getMessage());
+            $request->session()->flash('alert-class', 'error');
+
+            return redirect()->route('admin.roles.edit',['roleId' => $role->id]);
+        }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $role = $this->roleRepository->find($id);
+        try {
+            $role = $this->roleRepository->find($id);
+    
+            if (!$role) {
+                throw new \Exception('Role not found', 404);
+            }
+    
+            $deleted = $this->roleRepository->delete($role->id);
+    
+            if (!$deleted) {
+                throw new \Exception('Failed delete', 404);
+            }
+    
+            $request->session()->flash('message', 'You are success delete role data!');
+            $request->session()->flash('alert-class', 'success');
 
-        if (!$role) {
-            throw new \Exception('Role not found', 404);
+            return redirect()->route('admin.roles.index');
+        } catch (\Exception $e) {
+            $request->session()->flash('message', $e->getMessage());
+            $request->session()->flash('alert-class', 'error');
+            
+            return redirect()->route('admin.roles.index');
         }
-
-        $deleted = $this->roleRepository->delete($role->id);
-
-        if (!$deleted) {
-            throw new \Exception('Failed delete', 404);
-        }
-
-        return $deleted;
     }
 }

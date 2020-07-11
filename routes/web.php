@@ -28,4 +28,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/roles/store', 'RoleController@store')->name('admin.roles.store');
     Route::get('/roles/{roleId}/edit', 'RoleController@edit')->name('admin.roles.edit');
     Route::put('/roles/{roleId}/update', 'RoleController@update')->name('admin.roles.update');
+    Route::delete('/roles/{roleId}/delete', 'RoleController@destroy')->name('admin.roles.delete');
 });
