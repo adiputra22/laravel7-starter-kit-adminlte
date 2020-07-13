@@ -20,7 +20,7 @@
 <body class="hold-transition register-page">
 <div class="register-box">
     <div class="register-logo">
-        <a href="{{ route('/') }}"><b>Admin</b>LTE</a>
+        <a href="{{ route('home') }}"><b>Admin</b>LTE</a>
     </div>
     
     <div class="card">

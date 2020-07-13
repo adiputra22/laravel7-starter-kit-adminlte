@@ -6,10 +6,10 @@ Auth::routes();
 
 Route::get('/', function() {
     return view('welcome');
-})->name('/');
+})->name('home');
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('admin.home');
     Route::get('/users', 'UserController@index')->name('admin.users.index');
     Route::get('/users/create', 'UserController@create')->name('admin.users.create');
     Route::post('/users/store', 'UserController@store')->name('admin.users.store');
