@@ -47,8 +47,12 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->roles()->get()->pluck('name')->implode('-') }}</td>
+                                <td>{{ $user->roles()->get()->pluck('name')->implode(', ') }}</td>
                                 <td>
+                                    <a class='btn btn-info m-1' href="{{ route('admin.users.show', ['userId' => $user->id]) }}">
+                                        <i class="fas fa-search"></i> {{ __('View') }}
+                                    </a>
+
                                     <a class='btn btn-info m-1' href="{{ route('admin.users.edit', ['userId' => $user->id]) }}">
                                         <i class="fas fa-pen"></i> {{ __('Edit') }}
                                     </a>

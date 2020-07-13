@@ -15,6 +15,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/users/store', 'UserController@store')->name('admin.users.store');
     Route::get('/users/{userId}/edit', 'UserController@edit')->name('admin.users.edit');
     Route::put('/users/{userId}/update', 'UserController@update')->name('admin.users.update');
+    Route::get('/users/{userId}', 'UserController@show')->name('admin.users.show');
+    Route::put('/users/{userId}/roles', 'UserRoleController@update')->name('admin.users.roles.update');
 
     Route::get('/permissions', 'PermissionController@index')->name('admin.permissions.index');
     Route::get('/permissions/create', 'PermissionController@create')->name('admin.permissions.create');

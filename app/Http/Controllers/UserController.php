@@ -92,4 +92,30 @@ class UserController extends Controller
             return redirect()->route('admin.users.edit',['userId', $userId]);
         }
     }
+
+    public function show(Request $request, $userId)
+    {
+        try {
+            $user = $this->userRepository->find($userId);
+
+            if (!$user) {
+                throw new \Exception('User not found', 404);
+            }
+
+            $currentUserRoles = $user->roles()->get();
+
+            $roles = $this->roleRepository->getAll();
+
+            return view('user.show',[
+                'roles' => $roles,
+                'user' => $user,
+                'currentUserRoles' => $currentUserRoles
+            ]);
+        } catch (\Exception $e) {
+            $request->session()->flash('message', $e->getMessage());
+            $request->session()->flash('alert-class', 'alert-danger');
+
+            return redirect()->route('admin.users.index');
+        }
+    }
 }
