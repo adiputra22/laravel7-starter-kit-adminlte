@@ -6,7 +6,7 @@ Auth::routes();
 
 Route::get('/', function() {
     return view('welcome');
-});
+})->name('/');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'HomeController@index')->name('home');
