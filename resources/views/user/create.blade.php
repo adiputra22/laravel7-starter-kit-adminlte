@@ -9,7 +9,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">{{ __('User') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('User') }}</a></li>
                     <li class="breadcrumb-item active">{{ __('Create') }}</li>
                 </ol>
             </div>
