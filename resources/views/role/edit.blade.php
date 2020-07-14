@@ -38,7 +38,7 @@
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-info">{{ __('Save') }}</button>
-                            <button type="button" class="btn btn-default float-right">{{ __('Cancel') }}</button>
+                            <a class="btn btn-default float-right" href="{{ route('admin.roles.index') }}">{{ __('Back To List') }}</a>
                         </div>
                     </form>
                 </div>
