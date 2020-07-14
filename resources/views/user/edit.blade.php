@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('User') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('Create') }}</li>
+                    <li class="breadcrumb-item active">{{ __('Edit') }}</li>
                 </ol>
             </div>
         </div>
@@ -23,21 +23,22 @@
             <div class="col-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">{{ __('Create User') }}</h3>
+                        <h3 class="card-title">{{ __('Edit User') }}</h3>
                     </div>
-                    <form class="form-horizontal" method="POST" action="{{ route('admin.users.store') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('admin.users.update',['userId' => $user->id]) }}">
                         @csrf
+                        @method('PUT')
                         <div class="card-body">
                             <div class="form-group row">
                                 <label for="name" class="col-sm-2 col-form-label">{{ __('Name') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="{{ __('Name') }}" value="{{ $user->name }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="email" class="col-sm-2 col-form-label">{{ __('Email') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="email" name="email" class="form-control" id="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}">
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="{{ __('Email') }}" value="{{ $user->email }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -63,4 +64,8 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('js_content')
+    @include('common.toast');
 @endsection

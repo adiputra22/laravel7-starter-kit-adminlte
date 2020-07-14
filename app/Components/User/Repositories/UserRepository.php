@@ -13,14 +13,16 @@ class UserRepository extends BaseRepository
 
     public function getListUsers($params)
     {
-        $listParams = [
-            'paginate' => true,
-            'per_page' => 10
-        ];
+        return $this->get($params,[],function($q) use ($params)
+        {
+            $search = (isset($params['search'])) ? $params['search'] : null;
 
-        $params = array_merge($params, $listParams);
+            if ($search) {
+                $q->where('name','like',"%{$search}%");
+            }
 
-        return $this->get($params);
+            return $q;
+        });
     }
 
     /**

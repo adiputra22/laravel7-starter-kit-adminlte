@@ -7,12 +7,6 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">{{ __('Users Page') }}</h1>
             </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">{{ __('User') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('Index') }}</li>
-                </ol>
-            </div>
         </div>
     </div>
 </div>
@@ -53,8 +47,12 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->roles()->get()->pluck('name')->implode('-') }}</td>
+                                <td>{{ $user->roles()->get()->pluck('name')->implode(', ') }}</td>
                                 <td>
+                                    <a class='btn btn-info m-1' href="{{ route('admin.users.show', ['userId' => $user->id]) }}">
+                                        <i class="fas fa-search"></i> {{ __('View') }}
+                                    </a>
+
                                     <a class='btn btn-info m-1' href="{{ route('admin.users.edit', ['userId' => $user->id]) }}">
                                         <i class="fas fa-pen"></i> {{ __('Edit') }}
                                     </a>
@@ -71,4 +69,8 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('modal_content')
+    @include('common.index-modal-alert');
 @endsection
