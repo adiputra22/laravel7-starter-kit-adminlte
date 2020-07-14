@@ -46,6 +46,9 @@
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>
+                                    <a class='btn btn-info m-1' href="{{ route('admin.roles.show', ['roleId' => $item->id]) }}">
+                                        <i class="fas fa-search"></i> {{ __('View') }}
+                                    </a>
                                     <a class='btn btn-info m-1' href="{{ route('admin.roles.edit', ['roleId' => $item->id]) }}">
                                         <i class="fas fa-pen"></i> {{ __('Edit') }}
                                     </a>

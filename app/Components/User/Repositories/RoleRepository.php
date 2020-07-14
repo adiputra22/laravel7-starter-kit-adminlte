@@ -23,4 +23,9 @@ class RoleRepository extends BaseRepository
             return $q;
         });
     }
+
+    public function getAllPermission(Role $role)
+    {
+        return $role->permissions()->get();
+    }
 }
